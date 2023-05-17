@@ -1,5 +1,7 @@
-package com.example.demo;
+package com.example.springboot;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 
 import org.springframework.boot.CommandLineRunner;
@@ -9,10 +11,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class HhhhhApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HhhhhApplication.class, args);
+        String hostname = InetAddress.getLocalHost().getHostName();
+        String ipAddress = InetAddress.getByName(hostname).getHostAddress();
+        System.out.println("IP address of this machine is: " + ipAddress);
+		//SpringApplication.run(Application.class, args);
 	}
 
 	@Bean
