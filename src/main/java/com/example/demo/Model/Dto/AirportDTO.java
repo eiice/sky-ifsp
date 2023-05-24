@@ -2,8 +2,9 @@ package com.example.demo.Model.Dto;
 
 import java.util.Arrays;
 import java.util.List;
+import com.example.demo.Model.Dto.BaseDTO;
 
-public class AirportDTO {
+public class AirportDTO extends BaseDTO {
 	private String country;
 	private String name; 
 	private String latitude;
@@ -15,6 +16,10 @@ public class AirportDTO {
 		this.name = name;
 		this.latitude = latitude;
 		this.longitude = longitude;
+	}
+
+	public AirportDTO()	{
+
 	}
 
 	public String getCountry() {
@@ -47,10 +52,6 @@ public class AirportDTO {
 
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
-	}
-	
-	public List<Object> getProperties(){
-		return Arrays.asList(this.getCountry(), this.getLatitude(), this.getLongitude(), this.getName()));
 	}
 }
 

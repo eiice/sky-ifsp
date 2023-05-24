@@ -14,10 +14,10 @@ import org.springframework.context.annotation.Bean;
 public class Application {
 
 	public static void main(String[] args) {
-        String hostname = InetAddress.getLocalHost().getHostName();
-        String ipAddress = InetAddress.getByName(hostname).getHostAddress();
-        System.out.println("IP address of this machine is: " + ipAddress);
-		//SpringApplication.run(Application.class, args);
+        // String hostname = InetAddress.getLocalHost().getHostName();
+        // String ipAddress = InetAddress.getByName(hostname).getHostAddress();
+        // System.out.println("IP address of this machine is: " + ipAddress);
+		SpringApplication.run(Application.class, args);
 	}
 
 	@Bean

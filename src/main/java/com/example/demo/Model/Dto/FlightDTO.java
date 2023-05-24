@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class FlightDTO {
+public class FlightDTO extends BaseDTO{
 	private AirportDTO outward; //ida
 	private AirportDTO outbound; //partida
 	private Date departureTime; //horário de partida
@@ -19,6 +19,10 @@ public class FlightDTO {
 		this.departureTime = departureTime;
 		this.arrivalTime = arrivalTime;
 		this.airplane = airplane;
+	}
+	
+	public FlightDTO(){
+
 	}
 
 	public AirportDTO getOutward() {
@@ -59,9 +63,5 @@ public class FlightDTO {
 
 	public void setAirplane(AirplaneDTO airplane) {
 		this.airplane = airplane;
-	}
-	
-	public List<Object> getProperties(){
-		return Arrays.asList(this.getAirplane(), this.getArrivalTime(), this.getDepartureTime(), this.getOutbound(), this.getOutward()));
 	}
 }

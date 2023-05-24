@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Model.Dto.AirplaneDTO;
 import com.example.demo.Model.Dto.AirportDTO;
+import com.example.demo.Model.Dto.FlightDTO;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,19 +18,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/flight")
 public class FlightController {
 
-	@GetMapping("/list")
-	public List<List<Object>> List(@RequestParam int outward,
-								@RequestParam int outbound,
-								@RequestParam String departureTime,
-								@RequestParam String arrivalTime,
-								@RequestParam int airplane) 
+	// @GetMapping("/list")
+	// public List<List<Object>> List(@RequestParam int outward,
+	// 							@RequestParam int outbound,
+	// 							@RequestParam String departureTime,
+	// 							@RequestParam String arrivalTime,
+	// 							@RequestParam int airplane) 
+	// {
+	// 	//
+	// }
+
+	@ResponseBody
+	@GetMapping()
+	public FlightDTO Get(@RequestParam(value = "id", required = false) int id) 
 	{
-		//
-	}
-	
-	@GetMapping("/get")
-	public List<Object> Get(@RequestParam int id) 
-	{
-		//
+        FlightDTO flightRet = new FlightDTO();
+		return flightRet;
 	}
 }

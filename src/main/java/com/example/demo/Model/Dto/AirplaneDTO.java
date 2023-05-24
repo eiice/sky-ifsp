@@ -3,7 +3,7 @@ package com.example.demo.Model.Dto;
 import java.util.Arrays;
 import java.util.List;
 
-public class AirplaneDTO {
+public class AirplaneDTO extends BaseDTO{
 	private int seats; //seat
 	private String plane; //aeronave
 	
@@ -11,6 +11,10 @@ public class AirplaneDTO {
 		super();
 		this.seats = seats;
 		this.plane = plane;
+	}
+
+	public AirplaneDTO(){
+
 	}
 
 	public int getSeats() {
@@ -27,9 +31,5 @@ public class AirplaneDTO {
 
 	public void setPlane(String plane) {
 		this.plane = plane;
-	}
-	
-	public List<Object> getProperties(){
-		return Arrays.asList(this.getPlane(), this.getSeats()));
 	}
 }

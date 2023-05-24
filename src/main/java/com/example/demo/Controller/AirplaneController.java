@@ -6,16 +6,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/airplane")
 public class AirplaneController {
-	@GetMapping("/list")
-	public List<Object> List(@RequestParam String name,
-								@RequestParam int seats)
-	{
-		//
-	}
+	// @GetMapping("/list")
+	// public List<Object> List(@RequestParam String name,
+	// 							@RequestParam int seats)
+	// {
+	// 	//
+	// }
 	
-	@GetMapping("/get")
-	public List<Object> Get(@RequestParam int id) 
-	{
-		//
-	}
+	// @GetMapping("/get")
+	// public List<Object> Get(@RequestParam int id) 
+	// {
+	// 	//
+	// }
 }
