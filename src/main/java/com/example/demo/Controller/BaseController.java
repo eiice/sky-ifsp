@@ -13,10 +13,10 @@ public class BaseController {
         return new ArrayList<Dto>();
 	}
 	
-    @ResponseBody
-	@GetMapping()
-	public <Dto> Dto Get(@RequestParam(value = "id", required = true) int id)
-	{
-		return new Dto();
-	}
+    //@ResponseBody
+	//@GetMapping()
+	// public <Dto> Dto Get(@RequestParam(value = "id", required = true) int id)
+	//{
+	//	return new Dto();
+	//}
 }
