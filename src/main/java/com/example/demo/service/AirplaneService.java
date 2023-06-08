@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Airplane;
+import com.example.demo.model.Flight;
 import com.example.demo.repository.AirplaneRepository;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,8 @@ public class AirplaneService {
     @Autowired
     private AirplaneRepository airplaneRepository;
     public List<Airplane> list() {
-        return airplaneRepository.findAll();
+        List<Airplane> airplanes = airplaneRepository.findAll();
+        return airplanes;
     }
 
     public void update(Airplane airplane) {

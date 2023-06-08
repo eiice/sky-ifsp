@@ -3,9 +3,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.example.demo.model.Ticket;
+import com.example.demo.model.Ticket;
+import com.example.demo.model.dto.TicketDto;
+import com.example.demo.service.TicketService;
 import com.example.demo.service.TicketService;
 import javax.validation.Valid;
 import org.apache.coyote.Response;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,29 +18,45 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Validated
 @RequestMapping("/ticket")
+@Validated
 public class TicketController {
-    @Autowired
     TicketService ticketService;
-    @GetMapping("list")
-    public ResponseEntity<List<Ticket>> List()
-    {
-        return ResponseEntity.ok(ticketService.list());
+    private ModelMapper modelMapper;
+
+    public TicketController(TicketService ticketService, ModelMapper modelMapper) {
+        this.ticketService = ticketService;
+        this.modelMapper = modelMapper;
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Ticket>  Get(@Valid @PathVariable("id") Integer id)
+    @GetMapping("/list")
+    public ResponseEntity<List<TicketDto>> List()
     {
-        return ResponseEntity.ok(ticketService.read(id));
+        List<Ticket> tickets = ticketService.list();
+        List<TicketDto> ticketDtos = modelMapper.map(tickets, new TypeToken<List<TicketDto>>() {}.getType());
+        return ResponseEntity.ok(ticketDtos);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?>  Get(@PathVariable("id") Integer id)
+    {
+        try {
+            Ticket ticket = ticketService.read(id);
+            TicketDto ticketDto = modelMapper.map(ticket, TicketDto.class);
+            return ResponseEntity.ok(ticketDto);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @PostMapping("")
-    public void Post(@RequestBody Ticket ticket){
+    public ResponseEntity<?>  Post(@Valid @RequestBody Ticket ticket){
         ticketService.update(ticket);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> Put(@Valid @RequestBody Ticket ticket, @PathVariable Integer id) {
         try {
             Ticket existingTicket = ticketService.read(id);
@@ -47,11 +68,10 @@ public class TicketController {
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id){
         ticketService.delete(id);
     }
-
     @GetMapping("list-not-used")
     public ResponseEntity<List<Ticket>> ListNonUsedTickets()
     {

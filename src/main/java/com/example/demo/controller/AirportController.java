@@ -3,36 +3,54 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.example.demo.model.Airport;
+import com.example.demo.model.dto.AirportDto;
 import com.example.demo.service.AirportService;
 import javax.validation.Valid;
-import org.apache.coyote.Response;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Validated
 @RequestMapping("/airport")
+@Validated
 public class AirportController {
-    @Autowired
     AirportService airportService;
+    private ModelMapper modelMapper;
+
+    public AirportController(AirportService airportService, ModelMapper modelMapper) {
+        this.airportService = airportService;
+        this.modelMapper = modelMapper;
+    }
+
     @GetMapping("/list")
-    public ResponseEntity<List<Airport>> List()
+    public ResponseEntity<List<AirportDto>> List()
     {
-        return ResponseEntity.ok(airportService.list());
+        List<Airport> airports = airportService.list();
+        List<AirportDto> airportDtos = modelMapper.map(airports, new TypeToken<List<AirportDto>>() {}.getType());
+        return ResponseEntity.ok(airportDtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Airport>  Get(@Valid @PathVariable("id") Integer id)
+    public ResponseEntity<?>  Get(@PathVariable("id") Integer id)
     {
-        return ResponseEntity.ok(airportService.read(id));
+        try {
+            Airport airport = airportService.read(id);
+            AirportDto airportDto = modelMapper.map(airport, AirportDto.class);
+            return ResponseEntity.ok(airportDto);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @PostMapping("")
-    public void Post(@RequestBody Airport airport){
+    public ResponseEntity<?>  Post(@Valid @RequestBody Airport airport){
         airportService.update(airport);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

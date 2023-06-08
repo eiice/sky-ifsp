@@ -1,37 +1,15 @@
 package com.example.demo.model;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "roles")
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Integer id;
-
+public class Role extends BaseEntity{
     private String name;
-
-    public Role() {
-    }
-
-    public Role(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
