@@ -19,9 +19,8 @@ public class Passenger extends BaseEntity{
     private String cpf;
     @NotNull
     private Date birthdate;
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.MERGE)
     @JoinColumn(name = "airplane_id")
-    @NotNull
     private Airplane airplane;
     @NotNull
     private String passport;
