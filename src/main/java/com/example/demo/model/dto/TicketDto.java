@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TicketDto extends BaseEntity {
     private boolean hasBeenUsed;
-    private Passenger passenger;
+    private PassengerDto passenger;
     private String type;
 }
